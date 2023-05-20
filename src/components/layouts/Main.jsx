@@ -5,10 +5,11 @@ import Navbar from '../shared/Navbar';
 const Main = () => {
     return (
         <div>
-            <Navbar/>
+            <Navbar />
 
-
-            <Outlet/>
+            <section className='my-4'>
+                <Outlet />
+            </section>
         </div>
     );
 };

@@ -34,8 +34,9 @@ const Navbar = () => {
                     <Link to='/add-toy'>Add Toy</Link>
                     <Link to='/blogs'>Blogs</Link>
                 </div>
-                <div>
+                <div className='flex items-center gap-3'>
                     <FontAwesomeIcon icon={faShoppingCart} />
+                    <Link to='/login'><button className="btn text-poppins bg-[#929292] rounded-full px-8 py-2">Login</button></Link>
                 </div>
             </div>
 
