@@ -2,9 +2,10 @@ import { Button } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
-    const { authLogin, setUser } = useContext(AuthContext);
+    const { authLogin, setUser, authLoginWithGoogle, setLoading } = useContext(AuthContext);
     const navigate = useNavigate()
 
     const formSubmit = e => {
@@ -20,7 +21,19 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user)
+                setLoading(false)
                 form.reset()
+                navigate('/')
+            })
+            .catch(err => console.error(err.message))
+    }
+
+    const handleGoogleLogin = () => {
+        authLoginWithGoogle()
+            .then(result => {
+                const user = result.user;
+                setUser(user)
+                setLoading(false)
                 navigate('/')
             })
             .catch(err => console.error(err.message))
@@ -52,6 +65,19 @@ const Login = () => {
                         <p className='text-neutral-600'>Don't have an account yet? <Link to='/register' className='text-blue-600'>Sign Up</Link> </p>
                     </div>
                 </form>
+                <div className="divider">OR</div>
+                <Button
+                    outline={true}
+                    gradientDuoTone="pinkToOrange"
+                    className='w-full '
+                    onClick={handleGoogleLogin}
+                >
+                    <div className='flex gap-1 items-center justify-center text-md'>
+                        <FaGoogle />
+                        <p>Sign In With Google</p>
+                    </div>
+                </Button>
+
             </div>
         </div>
     );
