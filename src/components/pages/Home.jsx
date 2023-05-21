@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import ReactStarsRating from 'react-awesome-stars-rating';
 
 const Home = () => {
+    const [categories, setCategories] = useState([]);
+    const [sportsCars, setSportsCars] = useState([])
+    const [trucks, setTrucks] = useState([])
+    const [policeCars, setPoliceCars] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:5000/categories')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCategories(data)
+            })
+            .catch(err => console.error(err.message))
+
+    }, [])
+
+    useEffect(() => {
+        const sportsCars = categories.filter(item => item.category === 'Sports Car');
+        const trucks = categories.filter(item => item.category === 'Truck');
+        const cars = categories.filter(item => item.category === 'Police Car');
+
+        setSportsCars(sportsCars);
+        setTrucks(trucks);
+        setPoliceCars(cars);
+    }, [categories]);
+
     return (
         <div className='w-[80%] mx-auto'>
             {/* top banner */}
@@ -89,20 +116,26 @@ const Home = () => {
                             </Tab>
                         </TabList>
 
-                        <TabPanel
-                            selectedTabPanelClassName='bg-white font-bold p-4'
-                        >
-                            <h2>Any content 1</h2>
+                        <TabPanel>
+                            <div className='grid grid-cols-3 gap-3 my-8'>
+                                {sportsCars.map(toy => <ToyCard
+                                    key={toy._id}
+                                    toy={toy} />)}
+                            </div>
                         </TabPanel>
-                        <TabPanel
-                            selectedTabPanelClassName='bg-white font-bold p-4'
-                        >
-                            <h2>Any content 2</h2>
+                        <TabPanel>
+                            <div className='grid grid-cols-3 gap-3 my-8'>
+                                {trucks.map(truck => <ToyCard
+                                    key={truck._id}
+                                    toy={truck} />)}
+                            </div>
                         </TabPanel>
-                        <TabPanel
-                            selectedTabPanelClassName='bg-white font-bold p-4'
-                        >
-                            <h2>Any content 3</h2>
+                        <TabPanel>
+                            <div className='grid grid-cols-3 gap-3 my-8'>
+                                {policeCars.map(policeCar => <ToyCard
+                                    key={policeCar._id}
+                                    toy={policeCar} />)}
+                            </div>
                         </TabPanel>
                     </Tabs>
                 </div>
@@ -111,5 +144,22 @@ const Home = () => {
         </div>
     );
 };
+
+const ToyCard = ({ toy }) => {
+    return (
+        <div className="card w-full bg-base-100 shadow-xl">
+            <figure><img src={toy.picture} alt="Shoes" className='h-52 w-full object-cover' /></figure>
+            <div className="card-body">
+                <h2 className="card-title">
+                    {toy.name}
+                </h2>
+                <div className="card-actions flex justify-between">
+                    <ReactStarsRating value={toy.ratings} className='flex gap-1' size={20} readonly/>
+                    <div className="badge badge-outline p-2">Price: ${toy.price}</div>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default Home;
