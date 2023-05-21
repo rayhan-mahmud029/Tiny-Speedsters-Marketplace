@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import ReactStarsRating from 'react-awesome-stars-rating';
+import { ToyCard } from './ToyCard';
 
 const Home = () => {
     const [categories, setCategories] = useState([]);
@@ -141,25 +141,53 @@ const Home = () => {
                 </div>
 
             </section>
+
+
+            {/* Shop by age section */}
+            <section className='my-4 py-4'>
+                <h1 className='text-center text-2xl lg:text-5xl mb-2'>Shop By Age</h1>
+                <p className='text-center text-neutral-500'>Toys Wonderland for Kids</p>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 my-4 lg:my-6">
+                    <div className='flex flex-col justify-center items-center'>
+                        <div className='w-44 h-44 bg-slate-500 rounded-full relative'>
+                            <img src="https://i.ibb.co/VpFmWrL/4853433.jpg" alt="" className='absolute w-44 h-44  rounded-full top-0 object-cover ' />
+                            <img src="https://i.ibb.co/ZgJwtr7/kindpng-2122609.png" alt="" className='absolute top-0 w-full  z-20 self-center object-cover' />
+                            <div className='z-10 border-neutral-400 w-40 h-40 rounded-full border-dashed border-2 absolute top-2 left-2'></div>
+
+                        </div>
+                        <p className=' text-poppins font-medium text-center mt-2'>For Baby</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <div className='w-44 h-44 bg-slate-500 rounded-full relative'>
+                            <img src="https://i.ibb.co/PxMX6Gs/17580.jpg" alt="" className='absolute w-44 h-44  rounded-full top-0 object-cover ' />
+                            <img src="https://i.ibb.co/ZgJwtr7/kindpng-2122609.png" alt="" className='absolute top-0 w-full  z-20 self-center object-cover' />
+                            <div className='z-10 border-neutral-400 w-40 h-40 rounded-full border-dashed border-2 absolute top-2 left-2'></div>
+                        </div>
+                        <p className=' text-poppins font-medium text-center mt-2'>2 to 6 years</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <div className='w-44 h-44 bg-slate-500 rounded-full relative'>
+                            <img src="https://i.ibb.co/PxMX6Gs/17580.jpg" alt="" className='absolute w-44 h-44  rounded-full top-0 object-cover ' />
+                            <img src="https://i.ibb.co/ZgJwtr7/kindpng-2122609.png" alt="" className='absolute top-0 w-full  z-20 self-center object-cover' />
+                            <div className='z-10 border-neutral-400 w-40 h-40 rounded-full border-dashed border-2 absolute top-2 left-2'></div>
+                        </div>
+                        <p className=' text-poppins font-medium text-center mt-2'>7 to 10 years</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <div className='w-44 h-44 bg-slate-500 rounded-full relative'>
+                            <img src="https://i.ibb.co/PxMX6Gs/17580.jpg" alt="" className='absolute w-44 h-44  rounded-full top-0 object-cover ' />
+                            <img src="https://i.ibb.co/ZgJwtr7/kindpng-2122609.png" alt="" className='absolute top-0 w-full  z-20 self-center object-cover' />
+                            <div className='z-10 border-neutral-400 w-40 h-40 rounded-full border-dashed border-2 absolute top-2 left-2'></div>
+                        </div>
+                        <p className=' text-poppins font-medium text-center mt-2'>11 years & up</p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
 
-const ToyCard = ({ toy }) => {
-    return (
-        <div className="card w-full bg-base-100 shadow-xl">
-            <figure><img src={toy.picture} alt="Shoes" className='h-52 w-full object-cover' /></figure>
-            <div className="card-body">
-                <h2 className="card-title">
-                    {toy.name}
-                </h2>
-                <div className="card-actions flex justify-between">
-                    <ReactStarsRating value={toy.ratings} className='flex gap-1' size={20} readonly/>
-                    <div className="badge badge-outline p-2">Price: ${toy.price}</div>
-                </div>
-            </div>
-        </div>
-    );
-}
+
 
 export default Home;
