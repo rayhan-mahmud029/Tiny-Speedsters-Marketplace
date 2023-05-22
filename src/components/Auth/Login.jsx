@@ -1,12 +1,15 @@
 import { Button } from 'flowbite-react';
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
     const { authLogin, setUser, authLoginWithGoogle, setLoading } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
 
     const formSubmit = e => {
         e.preventDefault();
@@ -23,7 +26,7 @@ const Login = () => {
                 setUser(user)
                 setLoading(false)
                 form.reset()
-                navigate('/')
+                navigate(from, { replace: true })
             })
             .catch(err => console.error(err.message))
     }
@@ -34,7 +37,7 @@ const Login = () => {
                 const user = result.user;
                 setUser(user)
                 setLoading(false)
-                navigate('/')
+                navigate(from, { replace: true })
             })
             .catch(err => console.error(err.message))
     }
