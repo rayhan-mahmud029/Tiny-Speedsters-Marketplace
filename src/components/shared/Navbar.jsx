@@ -14,9 +14,9 @@ const Navbar = () => {
     }
 
     return (
-        <div className='py-6 bg-[] border-b border-neutral-400'>
+        <div className='py-6 border-b border-neutral-[#75A4DA]'>
             <div style={{ transform: 'rotate(180deg)', height: '10px' }}>
-                <Wave fill='#01B0ED'
+                <Wave fill='#75A4DA'
                     paused={false}
                     options={{
                         height: 5,

@@ -3,31 +3,31 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { ToyCard } from './ToyCard';
 
 const Home = () => {
-    const [categories, setCategories] = useState([]);
+    const [allToys, setToys] = useState([]);
     const [sportsCars, setSportsCars] = useState([])
     const [trucks, setTrucks] = useState([])
     const [policeCars, setPoliceCars] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch('http://localhost:5000/all-toys')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setCategories(data)
+                setToys(data)
             })
             .catch(err => console.error(err.message))
 
     }, [])
 
     useEffect(() => {
-        const sportsCars = categories.filter(item => item.category === 'Sports Car');
-        const trucks = categories.filter(item => item.category === 'Truck');
-        const cars = categories.filter(item => item.category === 'Police Car');
+        const sportsCars = allToys.filter(item => item.category === 'Sports Car').slice(0, 3);
+        const trucks = allToys.filter(item => item.category === 'Truck').slice(0, 3);
+        const cars = allToys.filter(item => item.category === 'Police Car').slice(0, 3);
 
         setSportsCars(sportsCars);
         setTrucks(trucks);
         setPoliceCars(cars);
-    }, [categories]);
+    }, [allToys]);
 
     return (
         <div className='w-[80%] mx-auto'>
@@ -48,7 +48,7 @@ const Home = () => {
 
             {/* feature's */}
             <section>
-                <h1 className='text-2xl lg:text-5xl text-center my-6'>Featured Products</h1>
+                <h1 className='text-2xl lg:text-5xl text-center my-6'>Featured Gallery</h1>
                 <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-1">
                         <img
@@ -184,6 +184,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
         </div>
     );
 };
