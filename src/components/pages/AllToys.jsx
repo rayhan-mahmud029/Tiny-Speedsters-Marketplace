@@ -1,5 +1,7 @@
+import { Button } from 'flowbite-react';
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const AllToys = () => {
     const allData = useLoaderData();
@@ -40,7 +42,7 @@ const AllToys = () => {
 
 
 const ToyRow = ({ toy }) => {
-    const { picture, name, sellerName, sellerEmail, price, availableQuantity, category } = toy;
+    const { _id, picture, name, sellerName, sellerEmail, price, availableQuantity, category } = toy;
 
     return (
         <tr>
@@ -64,8 +66,12 @@ const ToyRow = ({ toy }) => {
             </td>
             <td>${price}</td>
             <th className='text-neutral-500'>{availableQuantity}</th>
-            <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+            <th className='p-1'>
+                <Link to={`/toy/${_id}`}>
+                    <Button outline={true} className='bg-gray-500' size='xs'>
+                        <FaArrowRight className="h-2 w-4" />
+                    </Button>
+                </Link>
             </th>
         </tr>
     );

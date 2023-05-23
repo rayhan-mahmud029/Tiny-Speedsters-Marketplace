@@ -40,6 +40,9 @@ const Navbar = () => {
                     <Link to='/'>Home</Link>
                     <Link to='/all-toys'>All Toys</Link>
                     <Link to='/add-toy'>Add Toy</Link>
+                    {
+                        user &&  <Link to='/my-toys'>Add Toy</Link>
+                    }
                     <Link to='/blogs'>Blogs</Link>
                 </div>
                 <div className='flex items-center gap-3'>

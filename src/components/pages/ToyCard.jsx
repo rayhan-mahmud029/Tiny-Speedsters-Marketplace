@@ -18,7 +18,7 @@ export const ToyCard = ({ toy }) => {
                 </div>
             </div>
             <div className='w-full'>
-                <Link to={`/toy-details/${toy._id}`}>
+                <Link to={`/toy/${toy._id}`}>
                     <button className="btn w-full rounded-none rounded-b-md bg-[#75A4DA] border-none" >View Details</button>
                 </Link>
             </div>
