@@ -39,9 +39,13 @@ const Navbar = () => {
                 <div className="gap-4 lg:gap-10 self-center flex-1 justify-center items-center text-sm lg:text-lg hidden lg:flex">
                     <Link to='/'>Home</Link>
                     <Link to='/all-toys'>All Toys</Link>
-                    <Link to='/add-toy'>Add Toy</Link>
+
                     {
-                        user &&  <Link to='/my-toys'>My Toys</Link>
+                        user &&
+                        <>
+                            <Link to='/add-toy'>Add Toy</Link>
+                            <Link to='/my-toys'>My Toys</Link>
+                        </>
                     }
                     <Link to='/blogs'>Blogs</Link>
                 </div>
@@ -58,7 +62,7 @@ const Navbar = () => {
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn lg:btn-lg btn-ghost btn-circle avatar">
                                     <div className="p-1 rounded-full">
-                                        <img src={user.photoURL} className='rounded-full' />
+                                        <img src={user.photoURL} className='rounded-full' title={user.displayName}/>
                                     </div>
                                 </label>
                                 <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 relative">
