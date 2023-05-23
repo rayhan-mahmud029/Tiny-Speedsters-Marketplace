@@ -10,12 +10,14 @@ import AddToy from "../components/pages/AddToy";
 import AllToys from "../components/pages/AllToys";
 import MyToys from "../components/pages/MyToys";
 import UpdateToy from "../components/pages/Update";
+import ErrorPage from "../components/pages/ErrorPage";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 path: '/login',
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/update/:id',
-                element: <UpdateToy />,
+                element:<ProtectedRoute> <UpdateToy /></ProtectedRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/toy/${params.id}`)
             }
         ]
