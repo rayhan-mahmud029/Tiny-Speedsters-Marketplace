@@ -7,37 +7,43 @@ import Blogs from "../components/pages/Blogs";
 import ProtectedRoute from "./ProtectedRoute";
 import ToyDetails from "../components/pages/ToyDetails";
 import AddToy from "../components/pages/AddToy";
+import AllToys from "../components/pages/AllToys";
 
 
-const  router = createBrowserRouter([
+const router = createBrowserRouter([
     {
         path: '/',
-        element: <Main/>,
+        element: <Main />,
         children: [
             {
                 path: '/login',
-                element: <Login/>
+                element: <Login />
             },
             {
                 path: '/register',
-                element: <Register/>
+                element: <Register />
             },
             {
                 path: '/',
-                element: <Home/>
+                element: <Home />
             },
             {
                 path: '/blogs',
-                element: <Blogs/>
+                element: <Blogs />
             },
             {
                 path: '/toy-details/:id',
-                element: <ProtectedRoute><ToyDetails/></ProtectedRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/all-toys/${params.id}`)
+                element: <ProtectedRoute><ToyDetails /></ProtectedRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/all-toys/${params.id}`)
             },
             {
                 path: 'add-toy',
-                element: <ProtectedRoute><AddToy/></ProtectedRoute>
+                element: <ProtectedRoute><AddToy /></ProtectedRoute>
+            },
+            {
+                path: 'all-toys',
+                element: <AllToys />,
+                loader: () =>  fetch('http://localhost:5000/all-toys/')
             }
         ]
     }

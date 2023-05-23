@@ -12,14 +12,32 @@ const AddToy = () => {
         const sellerName = form.sellerName.value;
         const sellerEmail = form.email.value;
         const toyName = form.toyName.value;
+        const picture = form.picture.value;
         const ratings = form.ratings.value;
         const price = form.price.value;
         const quantity = form.quantity.value;
         const description = form.description.value;
 
 
-        const toy = { sellerName, sellerEmail, toyName, ratings, price, quantity, description, category }
+        const toy = { sellerName, sellerEmail, toyName, picture, ratings, price, quantity, description, category }
         console.log(toy);
+
+        fetch('http://localhost:5000/add-toy', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(toy)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    form.reset();
+                    alert('Toy has been added')
+                }
+            })
+            .catch(err => console.error(err.message))
 
     }
     const handleOptionChange = e => {
@@ -52,6 +70,11 @@ const AddToy = () => {
                         <input defaultValue='' type="text" name="toyName" id="toyName" placeholder="Enter your toy's name" className='border-none p-3 text-poppins font-medium bg-white rounded-sm w-full' />
                     </div>
 
+                    <div className='my-4'>
+                        <label htmlFor="picture" className='block text-md font-semibold mb-3 text-gray-900 dark:text-white '>Toy Picture</label>
+                        <input defaultValue='' type="url" name="picture" id="picture" placeholder="Photo URL" className='border-none p-3 text-poppins font-medium bg-white rounded-sm w-full' />
+                    </div>
+
                     <div className="flex gap-3 w-full">
 
                         <div className='my-4 flex-1'>
@@ -70,14 +93,14 @@ const AddToy = () => {
 
                         <div className='my-4 flex-1'>
                             <label htmlFor="ratings" className='block text-md font-semibold mb-3 text-gray-900 dark:text-white '>Ratings</label>
-                            <input defaultValue='' type="number" name="ratings" id="ratings" placeholder='Enter ratings' className='border-none p-3 bg-white text-poppins font-medium rounded-sm w-full' />
+                            <input defaultValue='' type="text" name="ratings" id="ratings" placeholder='Enter ratings' className='border-none p-3 bg-white text-poppins font-medium rounded-sm w-full' />
                         </div>
                     </div>
 
                     <div className="flex gap-3 w-full">
                         <div className='my-4 flex-1'>
                             <label htmlFor="price" className='block text-md font-semibold mb-3 text-gray-900 dark:text-white '>Price</label>
-                            <input defaultValue='' type="number" name="price" id="price" placeholder='Enter expected price' className='border-none p-3 bg-white text-poppins font-medium rounded-sm w-full' />
+                            <input defaultValue='' type="text" name="price" id="price" placeholder='Enter expected price' className='border-none p-3 bg-white text-poppins font-medium rounded-sm w-full' />
                         </div>
 
                         <div className='my-4 flex-1'>
