@@ -1,14 +1,15 @@
 import { button } from '@material-tailwind/react';
 import { Button } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowDown, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const AllToys = () => {
     const [allData, setData] = useState([]);
+    const [orderAsc, setAscOrder] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-toys?limit=10')
+        fetch('http://localhost:5000/all-toys?limit=10&sort=price&order=asc')
             .then(res => res.json())
             .then(data => {
                 setData(data)
@@ -17,10 +18,21 @@ const AllToys = () => {
     }, [])
 
     const handleSeeMore = () => {
-        fetch('http://localhost:5000/all-toys')
+        fetch(`http://localhost:5000/all-toys?sort=price&order=${orderAsc ? 'asc' : 'dsc'}`)
             .then(res => res.json())
             .then(data => {
                 setData(data)
+            })
+            .catch(err => console.error(err.message))
+    }
+
+    const handlePriceSort = () => {
+        console.log('clicked');
+        fetch(`http://localhost:5000/all-toys?limit=10&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
+            .then(res => res.json())
+            .then(data => {
+                setData(data);
+                setAscOrder(!orderAsc);
             })
             .catch(err => console.error(err.message))
     }
@@ -36,7 +48,12 @@ const AllToys = () => {
                         <tr>
                             <th>Toy</th>
                             <th>Seller</th>
-                            <th>Price</th>
+                            <th>
+                                <button onClick={handlePriceSort}  className='flex gap-1 items-center btn btn-ghost btn-xs'>
+                                    Price
+                                    {orderAsc ? <FaArrowDown /> : <FaArrowUp />}
+                                </button>
+                            </th>
                             <th>Available Q:</th>
                             <th></th>
                         </tr>
@@ -90,7 +107,7 @@ const ToyRow = ({ toy }) => {
                 <br />
                 <span className="badge badge-ghost badge-sm">{sellerEmail}</span>
             </td>
-            <td>${price}</td>
+            <td>${price} </td>
             <th className='text-neutral-500'>{availableQuantity}</th>
             <th className='p-1'>
                 <Link to={`/toy/${_id}`}>
