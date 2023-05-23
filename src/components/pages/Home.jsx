@@ -4,6 +4,7 @@ import { ToyCard } from './ToyCard';
 import { FaMailchimp } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import useTitle from '../../hooks/useTitle';
 
 const Home = () => {
     const [allToys, setToys] = useState([]);
@@ -32,6 +33,8 @@ const Home = () => {
         setPoliceCars(cars);
     }, [allToys]);
 
+      // dynamic title
+      useTitle('Tiny Speedsters | Home')
     return (
         <div className='w-[80%] mx-auto'>
             {/* top banner */}
@@ -52,34 +55,37 @@ const Home = () => {
             {/* feature's */}
             <section>
                 <h1 className='text-2xl lg:text-5xl text-center my-6'>Featured Gallery</h1>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    <div className="lg:col-span-1 row-span-1">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4"
+                    data-aos="fade-up"
+                    data-aos-offset="100"
+                >
+                    <div className="col-span-1 ">
                         <img
                             src="https://i.ibb.co/8j7hVjv/toy-7796918.jpg"
                             alt="Photo 1"
                             className="object-cover h-full rounded-lg shadow-md w-full "
                         />
                     </div>
-                    <div className="col-span-2 row-span-2 grid grid-cols-2 gap-4">
+                    <div className="col-span-2  grid grid-cols-2 gap-4">
                         <img
                             src="https://i.ibb.co/JnDrMQW/pexels-nubia-navarro-nubikini-1522185.jpg"
                             alt="Photo 2"
-                            className="object-cover h-64 rounded-lg shadow-md"
+                            className="w-full object-cover h-64 rounded-lg shadow-md"
                         />
                         <img
                             src="https://i.ibb.co/0yRVQ0s/pexels-pixabay-35967.jpg"
                             alt="Photo 3"
-                            className="object-cover h-64 rounded-lg shadow-md"
+                            className="w-full object-cover h-64 rounded-lg shadow-md"
                         />
                         <img
                             src="https://i.ibb.co/k6zDM9t/pexels-hosein-ashrafosadat-243206.jpg"
                             alt="Photo 4"
-                            className="object-cover h-64 rounded-lg shadow-md"
+                            className="w-full object-cover h-64 rounded-lg shadow-md"
                         />
                         <img
                             src="https://i.ibb.co/RywSDCk/pexels-pixabay-35619.jpg"
                             alt="Photo 5"
-                            className="object-cover h-64 rounded-lg shadow-md"
+                            className="w-full object-cover h-64 rounded-lg shadow-md"
                         />
                     </div>
                 </div>
@@ -147,7 +153,9 @@ const Home = () => {
 
 
             {/* Shop by age section */}
-            <section className='my-4 py-4'>
+            <section className='my-4 py-4'
+                data-aos="fade-up"
+            >
                 <h1 className='text-center text-2xl lg:text-5xl mb-2'>Shop By Age</h1>
                 <p className='text-center text-neutral-500'>Toys Wonderland for Kids</p>
 
@@ -195,10 +203,10 @@ const Home = () => {
                 <h1 className='text-center text-2xl lg:text-5xl mb-2'>Newsletter</h1>
                 <p className='text-center text-neutral-500'>Speedy Playtime Thrills</p>
 
-                <div className='flex relative my-5 w-1/2 justify-center'>
-                    <input type="email" className='p-3 w-full border border-[#09CCD0] rounded-md text-poppins text-neutral-600' placeholder='Enter email'/>
+                <div className='flex relative my-5 w-1/2 justify-center' data-aos='zoom-in'>
+                    <input type="email" className='p-3 w-full border border-[#09CCD0] rounded-md text-poppins text-neutral-600' placeholder='Enter email' />
                     <div className="absolute end-0 bg-[#09CCD0] rounded-e-md w-14 h-full flex justify-center items-center hover:bg-[#FF6F69]">
-                        <FontAwesomeIcon icon={faEnvelope} className='text-2xl mx-1 text-white'/>
+                        <FontAwesomeIcon icon={faEnvelope} className='text-2xl mx-1 text-white' />
                     </div>
                 </div>
 

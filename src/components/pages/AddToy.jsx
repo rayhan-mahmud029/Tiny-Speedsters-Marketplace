@@ -2,6 +2,7 @@ import { Option, Select } from '@material-tailwind/react';
 import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const AddToy = () => {
     const [category, setCategory] = useState('');
@@ -43,6 +44,9 @@ const AddToy = () => {
     const handleOptionChange = e => {
         setCategory(e);
     }
+
+      // dynamic title
+      useTitle('Tiny Speedsters | Add Toy')
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto'>
             <div className="absolute -z-10 opacity-30 h-full w-full">

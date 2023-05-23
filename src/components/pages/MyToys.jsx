@@ -3,6 +3,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { FaArrowDown, FaArrowRight, FaArrowUp, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
+import useTitle from '../../hooks/useTitle';
 
 const MyToys = () => {
     const { user } = useContext(AuthContext);
@@ -18,6 +19,9 @@ const MyToys = () => {
             })
             .catch(err => console.error(err.message))
     }, [])
+
+      // dynamic title
+      useTitle('Tiny Speedsters | Your Toys')
 
 
     const handleDelete = id => {

@@ -2,6 +2,7 @@ import { Button } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const Register = () => {
     const { authRegister, setUser, updateUserInfo } = useContext(AuthContext);
@@ -31,6 +32,10 @@ const Register = () => {
             })
             .catch(err => console.error(err.message))
     }
+
+    // dynamic title
+    useTitle('Tiny Speedsters | Register')
+
     return (
         <div className='w-[80%] mx-auto custom-bg relative'>
             <div className="absolute -z-10 opacity-30 h-full w-full">

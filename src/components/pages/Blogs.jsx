@@ -1,7 +1,10 @@
 import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import useTitle from '../../hooks/useTitle';
 
 const Blogs = () => {
+      // dynamic title
+      useTitle('Tiny Speedsters | Blogs')
     return (
         <div className='w-[80%] mx-auto'>
             <h1 className='text-3xl text-center lg:text-5xl mx-auto'>Blogs</h1>

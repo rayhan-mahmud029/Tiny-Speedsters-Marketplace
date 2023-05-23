@@ -1,4 +1,5 @@
 import React from 'react';
+import useTitle from '../../hooks/useTitle';
 
 const UpdateToy = () => {
     const data = useLoaderData();
@@ -37,6 +38,9 @@ const UpdateToy = () => {
             .catch(err => console.error(err.message))
 
     }
+
+      // dynamic title
+      useTitle('Tiny Speedsters | Update')
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto'>

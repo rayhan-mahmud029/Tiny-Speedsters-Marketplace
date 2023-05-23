@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from 'react-icons/fa';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
     const { authLogin, setUser, authLoginWithGoogle, setLoading } = useContext(AuthContext);
@@ -41,6 +42,10 @@ const Login = () => {
             })
             .catch(err => console.error(err.message))
     }
+
+
+    // set title
+    useTitle('Tiny Speedsters | Login')
     return (
         <div className='w-[80%] mx-auto custom-bg relative'>
             <div className="absolute -z-10 opacity-30 h-full w-full">

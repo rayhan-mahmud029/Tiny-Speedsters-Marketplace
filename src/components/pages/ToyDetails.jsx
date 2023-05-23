@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { Button } from 'flowbite-react';
+import useTitle from '../../hooks/useTitle';
 
 
 
@@ -10,6 +11,8 @@ const ToyDetails = () => {
     console.log(toyData);
     const { picture, category, name, description, ratings, price, sellerName, sellerEmail, availableQuantity } = toyData[0];
 
+    // dynamic title
+    useTitle(`Tiny Speedsters |  ${name} - Details`)
 
     return (
         <div className='my-4 lg:my-8 flex flex-col md:flex-row w-[95%] md:w-[85%] mx-auto' >

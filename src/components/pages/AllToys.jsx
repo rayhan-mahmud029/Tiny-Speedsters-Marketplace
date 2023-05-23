@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowDown, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Search from "react-searchbox-awesome";
+import useTitle from '../../hooks/useTitle';
 
 const AllToys = () => {
     const [allData, setData] = useState([]);
@@ -136,6 +137,8 @@ const AllToys = () => {
         return cleanup;
     }, []);
 
+      // dynamic title
+      useTitle('Tiny Speedsters | All Toys')
 
 
     return (
