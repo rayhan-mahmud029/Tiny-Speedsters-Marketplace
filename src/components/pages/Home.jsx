@@ -52,15 +52,15 @@ const Home = () => {
             {/* feature's */}
             <section>
                 <h1 className='text-2xl lg:text-5xl text-center my-6'>Featured Gallery</h1>
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-1">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div className="lg:col-span-1 row-span-1">
                         <img
                             src="https://i.ibb.co/8j7hVjv/toy-7796918.jpg"
                             alt="Photo 1"
                             className="object-cover h-full rounded-lg shadow-md w-full "
                         />
                     </div>
-                    <div className="col-span-2 grid grid-cols-2 gap-4">
+                    <div className="col-span-2 row-span-2 grid grid-cols-2 gap-4">
                         <img
                             src="https://i.ibb.co/JnDrMQW/pexels-nubia-navarro-nubikini-1522185.jpg"
                             alt="Photo 2"
@@ -120,21 +120,21 @@ const Home = () => {
                         </TabList>
 
                         <TabPanel>
-                            <div className='grid grid-cols-3 gap-3 my-8'>
+                            <div className='grid grid-cols-1 lg:grid-cols-3 gap-3 my-8'>
                                 {sportsCars.map(toy => <ToyCard
                                     key={toy._id}
                                     toy={toy} />)}
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            <div className='grid grid-cols-3 gap-3 my-8'>
+                            <div className='grid grid-cols-1 lg:grid-cols-3 gap-3 my-8'>
                                 {trucks.map(truck => <ToyCard
                                     key={truck._id}
                                     toy={truck} />)}
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            <div className='grid grid-cols-3 gap-3 my-8'>
+                            <div className='grid grid-cols-1 lg:grid-cols-3 gap-3 my-8'>
                                 {policeCars.map(policeCar => <ToyCard
                                     key={policeCar._id}
                                     toy={policeCar} />)}
@@ -151,7 +151,7 @@ const Home = () => {
                 <h1 className='text-center text-2xl lg:text-5xl mb-2'>Shop By Age</h1>
                 <p className='text-center text-neutral-500'>Toys Wonderland for Kids</p>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 my-4 lg:my-6">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 my-4 lg:my-6">
                     <div className='flex flex-col justify-center items-center'>
                         <div className='w-44 h-44 bg-slate-500 rounded-full relative'>
                             <img src="https://i.ibb.co/VpFmWrL/4853433.jpg" alt="" className='absolute w-44 h-44  rounded-full top-0 object-cover ' />
