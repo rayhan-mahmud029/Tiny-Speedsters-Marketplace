@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { ToyCard } from './ToyCard';
+import { FaMailchimp } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
     const [allToys, setToys] = useState([]);
@@ -183,6 +186,22 @@ const Home = () => {
                         <p className=' text-poppins font-medium text-center mt-2'>11 years & up</p>
                     </div>
                 </div>
+            </section>
+
+
+            {/* Newsletter Section */}
+            <section className='my-4 py-4 flex flex-col justify-center items-center w-full'>
+
+                <h1 className='text-center text-2xl lg:text-5xl mb-2'>Newsletter</h1>
+                <p className='text-center text-neutral-500'>Speedy Playtime Thrills</p>
+
+                <div className='flex relative my-5 w-1/2 justify-center'>
+                    <input type="email" className='p-3 w-full border border-[#09CCD0] rounded-md text-poppins text-neutral-600' placeholder='Enter email'/>
+                    <div className="absolute end-0 bg-[#09CCD0] rounded-e-md w-14 h-full flex justify-center items-center hover:bg-[#FF6F69]">
+                        <FontAwesomeIcon icon={faEnvelope} className='text-2xl mx-1 text-white'/>
+                    </div>
+                </div>
+
             </section>
 
         </div>
