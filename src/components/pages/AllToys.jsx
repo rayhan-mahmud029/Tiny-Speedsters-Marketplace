@@ -1,5 +1,5 @@
 import { Button } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowDown, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Search from "react-searchbox-awesome";
@@ -66,17 +66,6 @@ const AllToys = () => {
     };
 
     // thats the style for the active element (hover, focus)
-    const activeStyle = {
-        backgroundColor: "pink",
-
-    };
-
-    const activeStyle1 = {
-        backgroundImage:
-            "linear-gradient(319deg, #bbff99 0%, #ffec99 37%, #ff9999 100%)",
-
-    };
-
     const activeStyle2 = {
         backgroundColor: "rgba(255,230,230,.3)",
     };
@@ -95,18 +84,6 @@ const AllToys = () => {
         }
     };
 
-    /*
-      here you define what happens when you press enter. 
-      note that the data that is passed to the list element, is stored in the data-set attribute.
-    */
-
-
-    const enterHandler = e => {
-        const searchitem = JSON.parse(e.target.dataset.searchitem);
-        console.log("Enter pressed", searchitem);
-    };
-
-    // same as above
     const clickHandler = e => {
         const searchitem = JSON.parse(e.target.dataset.searchitem);
         console.log("Click click!", searchitem);
@@ -114,34 +91,52 @@ const AllToys = () => {
             .then(res => res.json())
             .then(data => {
                 setData(data);
-                setSearched(true)
+                setSearched(true);
             })
-            .catch(err => console.error(err.message))
+            .catch(err => console.error(err.message));
     };
 
-    // what to happen when escape is pressed. in our example - nothing.
     const escHandler = e => {
         console.log("Escape pressed");
         fetch('http://localhost:5000/all-toys?limit=10&sort=price&order=asc')
             .then(res => res.json())
             .then(data => {
                 setData(data);
-                setSearched(false)
+                setSearched(false);
             })
-            .catch(err => console.error(err.message))
+            .catch(err => console.error(err.message));
     };
 
-    // this is to close the searchlist when you click outside of it.
-    const clickOutsideHandler = e => {
-        console.log(e.target);
-        if (!e.target.closest(".ReactSearchboxAwesome")) {
-            setFiltered([]);
-        }
-    };
+    const searchRef = useRef(null);
+
     useEffect(() => {
-        document.addEventListener("click", clickOutsideHandler);
-        return () => document.removeEventListener("click", clickOutsideHandler);
+        const inputRef = searchRef.current?.querySelector('input');
+        console.log('searchRef.current:', searchRef.current);
+        console.log('inputRef:', inputRef);
+
+        const cleanup = () => {
+            const inputRef = searchRef.current?.querySelector('input');
+            if (inputRef) {
+                inputRef.removeEventListener('input', inputHandler);
+            }
+
+            if (searchRef.current && searchRef.current.removeEventListener) {
+                searchRef.current.removeEventListener('click', clickHandler);
+            }
+
+            if (document.removeEventListener) {
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+
+        inputRef?.addEventListener('input', inputHandler);
+        searchRef.current?.addEventListener('click', clickHandler);
+        document.addEventListener('keydown', escHandler);
+
+        return cleanup;
     }, []);
+
+
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto '>
@@ -156,7 +151,6 @@ const AllToys = () => {
                     activeStyle={activeStyle2} // hover, focus, active color.
                     placeholder={"Search for states..."} // input placeholder.
                     shortcuts={true} // hide or show span elements that display shortcuts.
-                    onEnter={enterHandler} // applies only to the list "li" element
                     onInput={inputHandler}
                     onClick={clickHandler} // applies only to the list "li" element
                     onEsc={escHandler} // applies to the entire component
