@@ -8,7 +8,6 @@ import useTitle from '../../hooks/useTitle';
 const AllToys = () => {
     const [allData, setData] = useState([]);
     const [orderAsc, setAscOrder] = useState(true);
-    const [filtered, setFiltered] = useState([]);
     const [searched, setSearched] = useState(false);
 
 
@@ -42,103 +41,23 @@ const AllToys = () => {
     }
 
 
-    // search bar style
-    const style = {
-        width: "calc(50% )",
-        color: "#333", // children inherit
-        backgroundColor: "white", // children inherit
-        fontSize: "1rem", // children inherit
-        position: "absolute",
-        top: "5rem",
-        left: '25%',
-        right: '25%',
-        boxShadow: "0 0 28px 2px rgba(0,0,0,0.1)",
-        border: "none",
-        overflow: "hidden",
 
-    };
-    const style1 = {
-        ...style,
-        borderRadius: "15px",
-        backgroundColor: "rgba(250,250,250,0.2)",
-        zIndex: 9999,
-        color: '#333'
+    const handleSearch = e => {
+        const element = document.getElementById('search');
+        const query = element.value;
 
-    };
-
-    // thats the style for the active element (hover, focus)
-    const activeStyle2 = {
-        backgroundColor: "rgba(255,230,230,.3)",
-    };
-
-    // handle search
-    // here the data is filtered as you search
-    const inputHandler = e => {
-        const input = e.target.value.toLowerCase();
-        if (input.length === 0) {
-            setFiltered([]);
-        } else {
-            const result = allData.filter(obj => {
-                return obj.name.toLowerCase().includes(input);
-            });
-            setFiltered(result);
-        }
-    };
-
-    const clickHandler = e => {
-        const searchitem = JSON.parse(e.target.dataset.searchitem);
-        console.log("Click click!", searchitem);
-        fetch(`http://localhost:5000/all-toys?term=name&query=${searchitem.name}`)
+        console.log(query);
+        fetch(`http://localhost:5000/all-toys?term=name&query=${query}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
                 setSearched(true);
             })
             .catch(err => console.error(err.message));
-    };
+    }
 
-    const escHandler = e => {
-        console.log("Escape pressed");
-        fetch('http://localhost:5000/all-toys?limit=10&sort=price&order=asc')
-            .then(res => res.json())
-            .then(data => {
-                setData(data);
-                setSearched(false);
-            })
-            .catch(err => console.error(err.message));
-    };
 
-    const searchRef = useRef(null);
-
-    useEffect(() => {
-        const inputRef = searchRef.current?.querySelector('input');
-        console.log('searchRef.current:', searchRef.current);
-        console.log('inputRef:', inputRef);
-
-        const cleanup = () => {
-            const inputRef = searchRef.current?.querySelector('input');
-            if (inputRef) {
-                inputRef.removeEventListener('input', inputHandler);
-            }
-
-            if (searchRef.current && searchRef.current.removeEventListener) {
-                searchRef.current.removeEventListener('click', clickHandler);
-            }
-
-            if (document.removeEventListener) {
-                document.removeEventListener('keydown', escHandler);
-            }
-        };
-
-        inputRef?.addEventListener('input', inputHandler);
-        searchRef.current?.addEventListener('click', clickHandler);
-        document.addEventListener('keydown', escHandler);
-
-        return cleanup;
-    }, []);
-
-      // dynamic title
-      useTitle('Tiny Speedsters | All Toys')
+    useTitle('Tiny Speedsters | All Toys')
 
 
     return (
@@ -147,17 +66,14 @@ const AllToys = () => {
 
             <div className='w-full flex flex-col gap-3 relative mb-20 justify-center'>
                 <h1 className='text-2xl lg:text-4xl text-center'>All Toys</h1>
-                <Search
-                    data={filtered} // array of the objects is passed here. []{title: string}. each object is saved in dataset of the correspondent element.
-                    mapping={{ title: "name" }} // when they don't correspond, allows to map the title of the search item and the name property in the filtered data.
-                    style={style1} // child elements inherit some styles.
-                    activeStyle={activeStyle2} // hover, focus, active color.
-                    placeholder={"Search for states..."} // input placeholder.
-                    shortcuts={true} // hide or show span elements that display shortcuts.
-                    onInput={inputHandler}
-                    onClick={clickHandler} // applies only to the list "li" element
-                    onEsc={escHandler} // applies to the entire component
-                />
+                <div className="form-control ">
+                    <div className="input-group">
+                        <input type="text" placeholder="Search…" className="input input-bordered w-1/2" id='search' />
+                        <button className="btn btn-square" onClick={handleSearch}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
 
 

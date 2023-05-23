@@ -97,7 +97,10 @@ const Home = () => {
                 <h1 className='text-center text-2xl lg:text-5xl'>Categories</h1>
                 <p className='text-center text-neutral-500'>Unleash your kids favorite type of speedster</p>
 
-                <div className='my-4'>
+                <div className='my-4' 
+                data-aos='fade-left'
+                data-aos-offset="100"
+                >
                     <Tabs>
                         <TabList
                             className='relative w-max mx-auto h-12 grid grid-cols-3 items-center px-[3px] rounded-full bg-gray-900/20 overflow-hidden shadow-2xl shadow-900/20 transition'
