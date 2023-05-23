@@ -1,10 +1,29 @@
+import { button } from '@material-tailwind/react';
 import { Button } from 'flowbite-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AllToys = () => {
-    const allData = useLoaderData();
+    const [allData, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/all-toys?limit=10')
+            .then(res => res.json())
+            .then(data => {
+                setData(data)
+            })
+            .catch(err => console.error(err.message))
+    }, [])
+
+    const handleSeeMore = () => {
+        fetch('http://localhost:5000/all-toys')
+            .then(res => res.json())
+            .then(data => {
+                setData(data)
+            })
+            .catch(err => console.error(err.message))
+    }
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto'>
@@ -35,6 +54,13 @@ const AllToys = () => {
 
                     </tbody>
                 </table>
+                <div className="w-full flex justify-center flex-col">
+                    <p className='text-center text-lg py-2'>Toys: {allData.length}</p>
+                    {
+                        allData.length >= 10 && <button className={`btn btn-outline w-1/4 mx-auto ${allData.length > 10 && 'hidden'}`} onClick={handleSeeMore}>See All</button>
+                    }
+                </div>
+
             </div>
         </div>
     );

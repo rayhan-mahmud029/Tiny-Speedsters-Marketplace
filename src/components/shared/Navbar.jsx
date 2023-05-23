@@ -41,7 +41,7 @@ const Navbar = () => {
                     <Link to='/all-toys'>All Toys</Link>
                     <Link to='/add-toy'>Add Toy</Link>
                     {
-                        user &&  <Link to='/my-toys'>Add Toy</Link>
+                        user &&  <Link to='/my-toys'>My Toys</Link>
                     }
                     <Link to='/blogs'>Blogs</Link>
                 </div>
