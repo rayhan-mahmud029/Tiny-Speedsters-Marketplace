@@ -2,7 +2,6 @@ import { Button } from 'flowbite-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowDown, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Search from "react-searchbox-awesome";
 import useTitle from '../../hooks/useTitle';
 
 const AllToys = () => {
@@ -12,7 +11,7 @@ const AllToys = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-toys?limit=10&sort=price&order=asc')
+        fetch('https://tiny-speedsters-server.vercel.app/all-toys?limit=10&sort=price&order=asc')
             .then(res => res.json())
             .then(data => {
                 setData(data)
@@ -21,7 +20,7 @@ const AllToys = () => {
     }, [])
 
     const handleSeeMore = () => {
-        fetch(`http://localhost:5000/all-toys?sort=price&order=${orderAsc ? 'asc' : 'dsc'}`)
+        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?sort=price&order=${orderAsc ? 'asc' : 'dsc'}`)
             .then(res => res.json())
             .then(data => {
                 setData(data)
@@ -31,7 +30,7 @@ const AllToys = () => {
 
     const handlePriceSort = () => {
         console.log('clicked');
-        fetch(`http://localhost:5000/all-toys?limit=10&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
+        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?limit=10&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
@@ -47,7 +46,7 @@ const AllToys = () => {
         const query = element.value;
 
         console.log(query);
-        fetch(`http://localhost:5000/all-toys?term=name&query=${query}`)
+        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${query}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);

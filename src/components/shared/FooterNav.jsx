@@ -10,15 +10,15 @@ const FooterNav = () => {
                 <div className="w-full bg-[#929292] bg-opacity-20">
 
 
-                    <div className="grid w-[90%] mx-auto justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 p-4">
-                        <div className='flex flex-col gap-5 justify-center'>
+                    <div className="grid w-[90%] mx-auto justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 p-4 gap-5">
+                        <div className='flex flex-col gap-5  justify-center'>
                             <Footer.Brand
                                 href="/"
                                 src="https://i.ibb.co/1MM33P6/kindpng-2104250.png"
                                 alt="Logo"
                                 name="TinySpeedsters"
                             />
-                            <div className="mt-8 flex space-x-6 sm:mt-0 sm:justify-center">
+                            <div className="flex space-x-6 sm:mt-0 sm:justify-center">
                                 <Footer.Icon
                                     href="#"
                                     icon={BsFacebook}
@@ -73,7 +73,7 @@ const FooterNav = () => {
                         </div>
                     </div>
                     <Footer.Divider />
-                    <div className="w-[90%] mx-auto mb-5 ">
+                    <div className="pb-5 text-center">
                         <Footer.Copyright
                             href="#"
                             by="TinySpeedsters"

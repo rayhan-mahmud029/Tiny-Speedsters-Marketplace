@@ -38,7 +38,7 @@ const router = createBrowserRouter([
             {
                 path: '/toy/:id',
                 element: <ProtectedRoute><ToyDetails /></ProtectedRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/toy/${params.id}`)
+                loader: ({ params }) => fetch(`https://tiny-speedsters-server.vercel.app/toy/${params.id}`)
             },
             {
                 path: 'add-toy',
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
             {
                 path: '/update/:id',
                 element:<ProtectedRoute> <UpdateToy /></ProtectedRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/toy/${params.id}`)
+                loader: ({ params }) => fetch(`https://tiny-speedsters-server.vercel.app/toy/${params.id}`)
             }
         ]
     }

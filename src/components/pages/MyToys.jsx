@@ -11,7 +11,7 @@ const MyToys = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/toys/user?email=${user.email}`)
+        fetch(`https://tiny-speedsters-server.vercel.app/toys/user?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -25,7 +25,7 @@ const MyToys = () => {
 
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/toy/${id}`, {
+        fetch(`https://tiny-speedsters-server.vercel.app/toy/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

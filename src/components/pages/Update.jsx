@@ -19,7 +19,7 @@ const UpdateToy = () => {
         const toyUpdate = { price, quantity, description }
         console.log(toyUpdate);
 
-        fetch(`http://localhost:5000/toy/${toy._id}`, {
+        fetch(`https://tiny-speedsters-server.vercel.app/toy/${toy._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

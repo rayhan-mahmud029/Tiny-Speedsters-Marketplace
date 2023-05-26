@@ -13,7 +13,7 @@ const Home = () => {
     const [policeCars, setPoliceCars] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-toys')
+        fetch('https://tiny-speedsters-server.vercel.app/all-toys')
             .then(res => res.json())
             .then(data => {
                 console.log(data);

@@ -23,7 +23,7 @@ const AddToy = () => {
         const toy = { sellerName, sellerEmail, toyName, picture, ratings, price, quantity, description, category }
         console.log(toy);
 
-        fetch('http://localhost:5000/add-toy', {
+        fetch('https://tiny-speedsters-server.vercel.app/add-toy', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
