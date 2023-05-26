@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from 'react-icons/fa';
 import useTitle from '../../hooks/useTitle';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const { authLogin, setUser, authLoginWithGoogle, setLoading } = useContext(AuthContext);
@@ -18,7 +19,6 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         const user = { email, password }
-        console.log(user);
 
         // auth login with email, password
         authLogin(email, password)
@@ -26,10 +26,13 @@ const Login = () => {
                 const user = result.user;
                 setUser(user)
                 setLoading(false)
-                form.reset()
+                form.reset();
+                toast.success('Welcome! Login Successful.');
                 navigate(from, { replace: true })
             })
-            .catch(err => console.error(err.message))
+            .catch(err => {
+                toast.error(`Error: ${err.message}`);
+            })
     }
 
     const handleGoogleLogin = () => {
@@ -37,10 +40,13 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user)
-                setLoading(false)
+                setLoading(false);
+                toast.success('Welcome! Login Successful.');
                 navigate(from, { replace: true })
             })
-            .catch(err => console.error(err.message))
+            .catch(err => {
+                toast.error(`Error: ${err.message}`);
+            })
     }
 
 

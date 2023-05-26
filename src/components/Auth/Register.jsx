@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import useTitle from '../../hooks/useTitle';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const { authRegister, setUser, updateUserInfo } = useContext(AuthContext);
@@ -23,14 +24,18 @@ const Register = () => {
                 const user = result.user;
                 updateUserInfo(name, photo)
                     .then(() => {
-                        console.log('user updated');
+                        toast.success('Profile Updated');
                     })
-                    .catch(err => console.error(err.message))
+                    .catch(err => {
+                        toast.success('Profile Update Error');
+                    })
                 setUser(user)
-                console.log(result.user);
+                toast.success('Welcome! Registration Successful');
                 form.reset()
             })
-            .catch(err => console.error(err.message))
+            .catch(err => {
+                toast.error(`Error: ${err.message}`);
+            })
     }
 
     // dynamic title

@@ -8,7 +8,6 @@ import useTitle from '../../hooks/useTitle';
 
 const ToyDetails = () => {
     const toyData = useLoaderData();
-    console.log(toyData);
     const { picture, category, name, description, ratings, price, sellerName, sellerEmail, availableQuantity } = toyData[0];
 
     // dynamic title

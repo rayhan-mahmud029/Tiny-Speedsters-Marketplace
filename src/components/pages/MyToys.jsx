@@ -4,6 +4,7 @@ import { FaArrowDown, FaArrowRight, FaArrowUp, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import useTitle from '../../hooks/useTitle';
+import { toast } from 'react-hot-toast';
 
 const MyToys = () => {
     const { user } = useContext(AuthContext);
@@ -14,14 +15,13 @@ const MyToys = () => {
         fetch(`https://tiny-speedsters-server.vercel.app/toys/user?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setMyToys(data)
             })
-            .catch(err => console.error(err.message))
+            .catch(err => toast.error(`Error: ${err.message}`))
     }, [])
 
-      // dynamic title
-      useTitle('Tiny Speedsters | Your Toys')
+    // dynamic title
+    useTitle('Tiny Speedsters | Your Toys')
 
 
     const handleDelete = id => {
@@ -30,21 +30,20 @@ const MyToys = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.deletedCount > 0) {
                     confirm('Are you sure?')
-                    alert('Item deleted')
+                    toast.success('Your roy has been deleted.');
                     const remaining = myToys.filter(toy => toy._id !== id)
                     setMyToys(remaining)
                 }
 
             })
-            .catch(err => console.error(err.message))
+            .catch(err => {
+                toast.error(`Error: ${err.message}`);
+            })
     }
 
-    const handleUpdate = e => {
 
-    }
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto '>
@@ -64,7 +63,7 @@ const MyToys = () => {
                             key={toy._id}
                             toy={toy}
                             handleDelete={handleDelete}
-                            handleUpdate={handleUpdate} />)
+                        />)
                     }
 
 
@@ -78,7 +77,7 @@ const MyToys = () => {
 };
 
 
-const ToyRow = ({ toy, handleDelete, handleUpdate }) => {
+const ToyRow = ({ toy, handleDelete }) => {
     const { _id, picture, name, price, availableQuantity, category, description } = toy;
 
     return (

@@ -16,7 +16,7 @@ const AllToys = () => {
             .then(data => {
                 setData(data)
             })
-            .catch(err => console.error(err.message))
+            .catch(err => toast.error(`Error: ${err.message}`))
     }, [])
 
     const handleSeeMore = () => {
@@ -25,18 +25,17 @@ const AllToys = () => {
             .then(data => {
                 setData(data)
             })
-            .catch(err => console.error(err.message))
+            .catch(err => toast.error(`Error: ${err.message}`))
     }
 
     const handlePriceSort = () => {
-        console.log('clicked');
         fetch(`https://tiny-speedsters-server.vercel.app/all-toys?limit=20&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
                 setAscOrder(!orderAsc);
             })
-            .catch(err => console.error(err.message))
+            .catch(err => toast.error(`Error: ${err.message}`))
     }
 
 
@@ -46,7 +45,6 @@ const AllToys = () => {
         const query = searchElement.value;
         const names = allData.map(name => name.name)
         const searchItem = names.find(name => name.toLowerCase().includes(query.toLowerCase()));
-        console.log(searchItem);
 
 
         fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${searchItem}`)
@@ -58,23 +56,25 @@ const AllToys = () => {
             .catch(err => console.error(err.message));
     }
 
-    searchElement?.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-            const query = searchElement.value;
-            const names = allData.map(name => name.name)
-            const searchItem = names.find(name => name.includes(query));
-            console.log(searchItem);
+    if (searchElement) {
+        searchElement.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                const query = searchElement.value;
+                const names = allData.map(name => name.name)
+                const searchItem = names.find(name => name.toLowerCase().includes(query.toLowerCase()));
 
 
-            fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${searchItem}`)
-                .then(res => res.json())
-                .then(data => {
-                    setData(data);
-                    setSearched(true);
-                })
-                .catch(err => console.error(err.message));
-        }
-    })
+                fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${searchItem}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setData(data);
+                        setSearched(true);
+                    })
+                    .catch(err => toast.error(`Error: ${err.message}`)
+                    );
+            }
+        })
+    }
 
 
     useTitle('Tiny Speedsters | All Toys')
@@ -90,7 +90,7 @@ const AllToys = () => {
                     setData(data);
                     setSearched(false);
                 })
-                .catch(err => console.error(err.message))
+                .catch(err => toast.error(`Error: ${err.message}`))
         }
     };
 

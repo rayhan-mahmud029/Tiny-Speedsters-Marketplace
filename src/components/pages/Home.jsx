@@ -16,10 +16,10 @@ const Home = () => {
         fetch('https://tiny-speedsters-server.vercel.app/all-toys')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setToys(data)
             })
-            .catch(err => console.error(err.message))
+            .catch(err => toast.error(`Error: ${err.message}`)
+            )
 
     }, [])
 
@@ -33,8 +33,8 @@ const Home = () => {
         setPoliceCars(cars);
     }, [allToys]);
 
-      // dynamic title
-      useTitle('Tiny Speedsters | Home')
+    // dynamic title
+    useTitle('Tiny Speedsters | Home')
     return (
         <div className='w-[80%] mx-auto'>
             {/* top banner */}
@@ -97,9 +97,9 @@ const Home = () => {
                 <h1 className='text-center text-2xl lg:text-5xl'>Categories</h1>
                 <p className='text-center text-neutral-500'>Unleash your kids favorite type of speedster</p>
 
-                <div className='my-4' 
-                data-aos='fade-left'
-                data-aos-offset="100"
+                <div className='my-4'
+                    data-aos='fade-left'
+                    data-aos-offset="100"
                 >
                     <Tabs>
                         <TabList

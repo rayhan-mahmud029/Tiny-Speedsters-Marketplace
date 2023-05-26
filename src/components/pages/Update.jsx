@@ -1,5 +1,6 @@
 import React from 'react';
 import useTitle from '../../hooks/useTitle';
+import { toast } from 'react-hot-toast';
 
 const UpdateToy = () => {
     const data = useLoaderData();
@@ -17,7 +18,6 @@ const UpdateToy = () => {
 
 
         const toyUpdate = { price, quantity, description }
-        console.log(toyUpdate);
 
         fetch(`https://tiny-speedsters-server.vercel.app/toy/${toy._id}`, {
             method: 'PUT',
@@ -28,19 +28,20 @@ const UpdateToy = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.modifiedCount > 0) {
-                    alert('Data updated.')
+                    toast.success('Toy data has been updated.')
                     form.reset();
                     navigate('/my-toys')
                 }
             })
-            .catch(err => console.error(err.message))
+            .catch(err => {
+                toast.error(`Error: ${err.message}`);
+            })
 
     }
 
-      // dynamic title
-      useTitle('Tiny Speedsters | Update')
+    // dynamic title
+    useTitle('Tiny Speedsters | Update')
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto'>
