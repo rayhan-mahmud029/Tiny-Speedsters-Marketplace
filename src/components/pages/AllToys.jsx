@@ -11,7 +11,7 @@ const AllToys = () => {
 
 
     useEffect(() => {
-        fetch('https://tiny-speedsters-server.vercel.app/all-toys?limit=10&sort=price&order=asc')
+        fetch('https://tiny-speedsters-server.vercel.app/all-toys?limit=20&sort=price&order=asc')
             .then(res => res.json())
             .then(data => {
                 setData(data)
@@ -30,7 +30,7 @@ const AllToys = () => {
 
     const handlePriceSort = () => {
         console.log('clicked');
-        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?limit=10&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
+        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?limit=20&sort=price&order=${orderAsc ? 'dsc' : 'asc'}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
@@ -41,12 +41,15 @@ const AllToys = () => {
 
 
 
+    const searchElement = document.getElementById('search');
     const handleSearch = e => {
-        const element = document.getElementById('search');
-        const query = element.value;
+        const query = searchElement.value;
+        const names = allData.map(name => name.name)
+        const searchItem = names.find(name => name.toLowerCase().includes(query.toLowerCase()));
+        console.log(searchItem);
 
-        console.log(query);
-        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${query}`)
+
+        fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${searchItem}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
@@ -55,9 +58,41 @@ const AllToys = () => {
             .catch(err => console.error(err.message));
     }
 
+    searchElement?.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            const query = searchElement.value;
+            const names = allData.map(name => name.name)
+            const searchItem = names.find(name => name.includes(query));
+            console.log(searchItem);
+
+
+            fetch(`https://tiny-speedsters-server.vercel.app/all-toys?term=name&query=${searchItem}`)
+                .then(res => res.json())
+                .then(data => {
+                    setData(data);
+                    setSearched(true);
+                })
+                .catch(err => console.error(err.message));
+        }
+    })
+
 
     useTitle('Tiny Speedsters | All Toys')
 
+
+    // Esc detect
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.key == 'Escape') {
+            fetch('https://tiny-speedsters-server.vercel.app/all-toys?limit=20&sort=price&order=asc')
+                .then(res => res.json())
+                .then(data => {
+                    setData(data);
+                    setSearched(false);
+                })
+                .catch(err => console.error(err.message))
+        }
+    };
 
     return (
         <div className='my-6 w-[95%] lg:w-[90%] mx-auto '>
@@ -67,7 +102,7 @@ const AllToys = () => {
                 <h1 className='text-2xl lg:text-4xl text-center'>All Toys</h1>
                 <div className="form-control ">
                     <div className="input-group">
-                        <input type="text" placeholder="Search…" className="input input-bordered w-1/2" id='search' />
+                        <input type="text" placeholder="Search by name…" className="input input-bordered w-1/2" id='search' />
                         <button className="btn btn-square" onClick={handleSearch}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </button>
@@ -110,7 +145,7 @@ const AllToys = () => {
                 <div className="w-full flex justify-center flex-col">
                     <p className='text-center text-lg py-2'>Toys: {allData.length}</p>
                     {
-                        allData.length >= 10 && <button className={`btn btn-outline w-1/4 mx-auto ${allData.length > 10 && 'hidden'}`} onClick={handleSeeMore}>See All</button>
+                        allData.length >= 20 && <button className={`btn btn-outline w-1/4 mx-auto ${allData.length > 20 && 'hidden'}`} onClick={handleSeeMore}>See All</button>
                     }
                 </div>
 
